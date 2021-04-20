@@ -24,6 +24,7 @@
     "ocs-component-lib": "^0.6.0",
     "pdf-lib": "^1.12.0",
     "popper.js": "^1.16.1",
+    "terser": "3.14",
     "vis": "4.19.1",
     "vue": "^2.6.11",
     "vue-ctk-date-time-picker": "^2.0.9",
