@@ -8,7 +8,6 @@
     @success="onSuccess"
     @error="onError"
   >
-  hellooooo
     <template v-slot:empty-requests>
       <div class="empty-requests">
         <center>
