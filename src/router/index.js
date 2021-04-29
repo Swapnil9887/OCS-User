@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Requests from '../views/Requests.vue';
+import RequestgroupsList from '../views/RequestgroupsList.vue';
 import Login from '../views/Login.vue';
 import Profile from '../views/Profile.vue';
 import RequestgroupDetail from '../views/RequestgroupDetail.vue';
@@ -18,7 +18,7 @@ const routes = [
   {
     path: '/',
     name: 'requests',
-    component: Requests,
+    component: RequestgroupsList,
     meta: {
       title: 'Submitted Requests'
     }

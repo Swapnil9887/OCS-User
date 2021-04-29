@@ -89,14 +89,6 @@ export default {
     requestApiUrl: function() {
       return this.$store.state.urls.observationPortalApi + '/api/requests/' + this.request.id + '/';
     },
-    instrumentName: function() {
-      let instrumentType = _.get(this.request, ['configurations', 0, 'instrument_type']);
-      if (instrumentType && instrumentType in this.instruments) {
-        return this.instruments[instrumentType].name;
-      } else {
-        return instrumentType;
-      }
-    },
     requestLink: function() {
       if (this.link) {
         return { to: { name: 'requestDetail', params: { id: this.request.id } } };
@@ -112,7 +104,6 @@ export default {
     }
   },
   created: function() {
-    let that = this;
     if (this.request.state === 'PENDING') {
       this.getPendingDetails();
     }

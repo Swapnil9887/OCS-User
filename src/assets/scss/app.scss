@@ -1,6 +1,13 @@
-@import '@/assets/scss/custom-colors.scss';
+// Updated basic colors
+$blue: #00adef;
+$yellow: #ffc107;
+$white: #fff;
+$red: #dc3545;
+$green: #28a745;
 
-// Override boostrap sass variables
+// Updated theme colors
+$secondary: #80868c;
+$info: #8a6d3b;
 
 $font-family-sans-serif: 'Libre Franklin', sans-serif !default;
 $link-hover-decoration: none;

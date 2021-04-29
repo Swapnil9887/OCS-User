@@ -92,9 +92,6 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import { OCSUtil } from 'ocs-component-lib';
-import axios from 'axios';
-
-import { siteToColor, siteCodeToName } from '@/utils.js';
 
 export default {
   name: 'App',
@@ -115,8 +112,9 @@ export default {
       telescopeStatesData: {},
       tab: 'details',
       loadingColor: false,
-      siteToColor: siteToColor,
-      siteCodeToName: siteCodeToName,
+      // The included example data uses the 'ogg' observatory
+      siteToColor: { 'ogg': 'blue' },
+      siteCodeToName: { 'ogg': 'Test Observatory' },
     };
   },
   filters: {
@@ -158,9 +156,6 @@ export default {
     }
   },
   methods: {
-    isObjEmpty: function(obj) {
-      return $.isEmptyObject(obj);
-    },
     loadObservationData: function() {
       let that = this;
       $.getJSON(that.observationPortalApiUrl + '/api/requests/' + this.request.id + '/observations/', function(data) {

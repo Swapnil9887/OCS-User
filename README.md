@@ -27,6 +27,7 @@ Make sure you enable cross origin resource sharing for the frontend domain when 
 export CORS_ORIGIN_WHITELIST=http://127.0.0.1:8080
 export CSRF_TRUSTED_ORIGINS=127.0.0.1:8080
 ```
+Note: 127.0.0.1 and localhost are not interchangable here. If you want both to work in the browser, set both values in the configdb variables (ie. `export CSRF_TRUSTED_ORIGINS=127.0.0.1:8080,localhost:8080`).
 
 Then, to run a hot-reload server for developing on the frontend:
 ```
@@ -41,9 +42,4 @@ npm run build
 ### Lint and fix files
 ```
 npm run lint:fix
-```
-
-### Check for linting errors without fixing them
-```
-npm run lint:check
 ```

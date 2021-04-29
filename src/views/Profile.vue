@@ -3,42 +3,49 @@
     <b-col md="8">
       <h3>Settings</h3>
       <b-form @submit="updateProfileData" @reset="clearProfileForm">
+
         <b-form-group id="input-group-first-name" label="First Name" label-for="input-first-name">
-          <b-form-input id="input-first-name" v-model="formData.first_name" :state="getValidState('first_name')" required />
+          <b-form-input id="input-first-name" v-model="formData.first_name" :state="getValidState('first_name')" />
           <b-form-invalid-feedback id="input-first-name-state">
             <span v-for="msg in getFeedback('first_name')" :key="msg">{{ msg }}</span>
           </b-form-invalid-feedback>
         </b-form-group>
+
         <b-form-group id="input-group-last-name" label="Last Name" label-for="input-last-name">
-          <b-form-input id="input-last-name" v-model="formData.last_name" :state="getValidState('last_name')" required />
+          <b-form-input id="input-last-name" v-model="formData.last_name" :state="getValidState('last_name')" />
           <b-form-invalid-feedback id="input-last-name-state">
             <span v-for="msg in getFeedback('last_name')" :key="msg">{{ msg }}</span>
           </b-form-invalid-feedback>
         </b-form-group>
+
         <b-form-group id="input-group-username" label="Username" label-for="input-username">
           <b-form-input id="input-username" v-model="formData.username" :state="getValidState('username')" required />
           <b-form-invalid-feedback id="input-username-state">
             <span v-for="msg in getFeedback('username')" :key="msg">{{ msg }}</span>
           </b-form-invalid-feedback>
         </b-form-group>
+
         <b-form-group id="input-group-email" label="Email" label-for="input-email">
           <b-form-input id="input-email" v-model="formData.email" type="email" :state="getValidState('email')" required />
           <b-form-invalid-feedback id="input-email-state">
             <span v-for="msg in getFeedback('email')" :key="msg">{{ msg }}</span>
           </b-form-invalid-feedback>
         </b-form-group>
+
         <b-form-group id="input-group-institution" label="Institution" label-for="input-institution">
-          <b-form-input id="input-institution" v-model="formData.profile.institution" :state="getValidState('profile.institution')" required />
+          <b-form-input id="input-institution" v-model="formData.profile.institution" :state="getValidState('profile.institution')" />
           <b-form-invalid-feedback id="input-institution-state">
             <span v-for="msg in getFeedback('profile.institution')" :key="msg">{{ msg }}</span>
           </b-form-invalid-feedback>
         </b-form-group>
+
         <b-form-group id="input-group-title" label="Title" label-for="input-title">
-          <b-form-input id="input-title" v-model="formData.profile.title" :state="getValidState('profile.title')" required />
+          <b-form-input id="input-title" v-model="formData.profile.title" :state="getValidState('profile.title')" />
           <b-form-invalid-feedback id="input-title-state">
             <span v-for="msg in getFeedback('profile.title')" :key="msg">{{ msg }}</span>
           </b-form-invalid-feedback>
         </b-form-group>
+
         <b-form-group id="checkbox-group-notifications-enabled" label-for="checkbox-notifications-enabled">
           <template slot="description">
             <p>
@@ -54,6 +61,7 @@
             Notifications enabled
           </b-form-checkbox>
         </b-form-group>
+
         <b-form-group id="checkbox-group-notifications-on-authored-only" label-for="checkbox-notifications-on-authored-only">
           <template slot="description">
             <p>
@@ -69,6 +77,7 @@
             Notifications on authored only
           </b-form-checkbox>
         </b-form-group>
+
         <b-form-group id="checkbox-group-view-authored-requests-only" label-for="checkbox-view-authored-requests-only">
           <template slot="description">
             <p>Only requests that were authored by you will be visible.</p>
@@ -81,11 +90,13 @@
             View authored requests only
           </b-form-checkbox>
         </b-form-group>
+
         <b-form-group v-if="profile.is_staff" id="checkbox-group-staff-view" label-for="checkbox-staff-view">
           <b-form-checkbox id="checkbox-staff-view" v-model="formData.profile.staff_view" :state="getValidState('staff_view')">
             Staff view
           </b-form-checkbox>
         </b-form-group>
+
         <b-button type="submit" variant="primary">
           Save
         </b-button>
@@ -95,9 +106,11 @@
         <router-link :to="{ name: 'passwordChange' }" class="btn btn-danger pull-right ml-1">
           Change Password
         </router-link>
+
       </b-form>
       <br />
     </b-col>
+
     <b-col md="4">
       <h3>API Key</h3>
       <p>
