@@ -9,14 +9,4 @@ module.exports = {
       return args;
     });
   },
-  configureWebpack: () => {
-    return {
-      resolve: {
-        alias: {
-          // This is needed for jquery-file-download/src/Scripts/jquery.fileDownload.js to work
-          jquery: path.join(__dirname, 'node_modules/jquery/src/jquery')
-        }
-      }
-    };
-  }
 };
