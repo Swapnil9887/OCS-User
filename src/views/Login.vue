@@ -1,10 +1,10 @@
 <template>
   <b-row>
     <b-col>
-      <passthrough-form endpoint="/accounts/login/" :success-redirect-path="redirectPath" />
+      <em>Hint: the testing credentials are 'test_user' and 'test_pass'.</em>
+      <hr/>
+      <passthrough-form endpoint="/accounts/login/" :success-redirect-path="redirectPath"/>
       <br />
-      <p>Forgot your password?<router-link :to="{ name: 'passwordReset' }"> Reset it</router-link>.</p>
-      <p>Not a member?<router-link :to="{ name: 'register' }"> Register</router-link>.</p>
     </b-col>
   </b-row>
 </template>

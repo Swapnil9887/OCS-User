@@ -39,15 +39,6 @@
             <span v-for="msg in getFeedback('profile.title')" :key="msg">{{ msg }}</span>
           </b-form-invalid-feedback>
         </b-form-group>
-        <b-form-group
-          id="checkbox-group-simple-interface"
-          label-for="checkbox-simple-interface"
-          description="Hide advanced fields on the request composition page."
-        >
-          <b-form-checkbox id="checkbox-simple-interface" v-model="formData.profile.simple_interface" :state="getValidState('simple_interface')">
-            Simple interface
-          </b-form-checkbox>
-        </b-form-group>
         <b-form-group id="checkbox-group-notifications-enabled" label-for="checkbox-notifications-enabled">
           <template slot="description">
             <p>
@@ -131,11 +122,6 @@
       <p>
         <strong>{{ apiQuota.used }} out of {{ apiQuota.allowed }}</strong>
       </p>
-      <h3>Account Removal</h3>
-      <p>You may request that your account be deleted.</p>
-      <router-link :to="{ name: 'accountRemovalRequest' }" title="Request account removal">
-        Request account removal
-      </router-link>
     </b-col>
   </b-row>
 </template>

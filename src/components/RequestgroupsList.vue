@@ -1,9 +1,9 @@
 <template>
+
   <ocs-request-group-table
     class="p-0"
     :observation-portal-api-base-url="observationPortalApiUrl"
     :profile="profile"
-    :proposal-link="generateProposalLink"
     :requestgroup-link="generateRequestgroupLink"
     @success="onSuccess"
     @error="onError"
@@ -26,6 +26,7 @@
     </template>
   </ocs-request-group-table>
 </template>
+
 <script>
 import { clearAndSetErrorsMixin } from '@/components/util/utilMixins.js';
 
@@ -47,15 +48,13 @@ export default {
     onError: function(evt) {
       this.setErrorsOnFailedAJAXCall(evt);
     },
-    generateProposalLink: function(proposalId) {
-      return { to: { name: 'proposalDetail', params: { id: proposalId } } };
-    },
     generateRequestgroupLink: function(requestgroupId) {
       return { to: { name: 'requestgroupDetail', params: { id: requestgroupId } } };
     }
   }
 };
 </script>
+
 <style scoped>
 .empty-requests {
   margin-top: 50px;

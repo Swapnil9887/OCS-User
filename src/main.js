@@ -21,8 +21,6 @@ $.ajax({
 }).done(function(json) {
   store.commit('setRuntimeConfig', {
     observationPortalApi: process.env.VUE_APP_OBSERVATION_PORTAL_API_URL || json.observationPortalApiUrl,
-    archiveApi: process.env.VUE_APP_ARCHIVE_API_URL || json.archiveApiUrl,
-    archiveClient: process.env.VUE_APP_ARCHIVE_CLIENT_URL || json.archiveClientUrl,
   });
 
   // Add csrf protection and credentials to requests sent to the observation portal API
@@ -35,14 +33,6 @@ $.ajax({
       settings.xhrFields = {
         withCredentials: true
       };
-    }
-  });
-
-  // Add the archive token to a request being sent to the archive api or the thumbservice
-  $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
-    if (
-      (options.url.startsWith(store.state.urls.archiveApi)) && store.state.archiveToken) {
-      jqXHR.setRequestHeader('Authorization', 'Token ' + store.state.archiveToken);
     }
   });
 

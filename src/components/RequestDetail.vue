@@ -2,6 +2,8 @@
   <div class="row request-details">
     <div class="col-md-12">
       <b-tabs content-class="mt-4" no-fade nav-class="nav-justified mt-3">
+
+        <!-- Details tab -->
         <b-tab active @click="tab = 'details'">
           <template slot="title">
             <span title="Details about the observed request.">Details</span>
@@ -42,6 +44,8 @@
             </div>
           </div>
         </b-tab>
+
+        <!-- Scheduling tab -->
         <b-tab @click="tab = 'scheduling'">
           <template slot="title">
             <span title="Scheduling history.">Scheduling</span>
@@ -57,47 +61,43 @@
             <h3>This request has not been scheduled.</h3>
           </div>
         </b-tab>
+
+        <!-- Visibility Tab -->
         <b-tab @click="tab = 'visibility'">
           <template slot="title">
             <span title="Target Visibility.">Visibility</span>
           </template>
-          <airmass-telescope-states
+          <ocs-airmass-plot
             v-show="'airmass_limit' in airmassData"
-            :airmass-data="airmassData"
-            :telescope-states-data="telescopeStatesData"
-            :active-observation="activeObservation"
+            ref="airmass"
+            :data="airmassData"
+            :site-code-to-color="siteToColor"
+            :site-code-to-name="siteCodeToName"
+            @rangechanged="updateAirmassRange"
+            show-zoom-controls
+            alignleft
           />
           <p v-if="!hasTarget" class="text-center text-secondary">
             Visibility data not available
           </p>
         </b-tab>
-        <b-tab @click="tab = 'data'">
-          <template slot="title">
-            <span title="Scheduling history.">Data</span>
-          </template>
-          Connect to the archive client to view and download data here.
-        </b-tab>
+
+        <!-- TODO: connect archive client and add a data tab here -->
+
       </b-tabs>
     </div>
   </div>
 </template>
 <script>
-import Vue from 'vue';
 import $ from 'jquery';
 import _ from 'lodash';
 import { OCSUtil } from 'ocs-component-lib';
+import axios from 'axios';
 
-import AirmassTelescopeStates from '@/components/AirmassTelescopeStates.vue';
-
-Vue.filter('formatDate', function(value) {
-  return OCSUtil.formatDate(value);
-});
+import { siteToColor, siteCodeToName } from '@/utils.js';
 
 export default {
   name: 'App',
-  components: {
-    AirmassTelescopeStates
-  },
   props: {
     request: {
       type: Object,
@@ -114,8 +114,15 @@ export default {
       airmassData: {},
       telescopeStatesData: {},
       tab: 'details',
-      loadingColor: false
+      loadingColor: false,
+      siteToColor: siteToColor,
+      siteCodeToName: siteCodeToName,
     };
+  },
+  filters: {
+    formatDate(val) {
+      return OCSUtil.formatDate(val)
+    }
   },
   computed: {
     observationPortalApiUrl: function() {
@@ -129,15 +136,10 @@ export default {
     tab: function(tab) {
       if (tab === 'scheduling' && this.observationData.length === 0) {
         this.loadObservationData();
-      } else if (tab === 'visibility') {
+      } 
+     if (tab === 'visibility') {
         if ($.isEmptyObject(this.airmassData)) {
           this.loadAirmassData();
-        }
-        if ($.isEmptyObject(this.telescopeStatesData)) {
-          this.loadTelescopeStatesData();
-          if (this.observationData.length === 0) {
-            this.loadObservationData();
-          }
         }
       }
     }
@@ -233,11 +235,8 @@ export default {
         });
       }
     },
-    loadTelescopeStatesData: function() {
-      let that = this;
-      $.getJSON(that.observationPortalApiUrl + '/api/requests/' + this.request.id + '/telescope_states/', function(data) {
-        that.telescopeStatesData = data;
-      });
+    updateAirmassRange: function(window) {
+      this.$refs.airmass.updateWindow(window);
     },
     onObservationClicked: function(observationId) {
       this.$router.push({ name: 'observationDetail', params: { id: observationId } });

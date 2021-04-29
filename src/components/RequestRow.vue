@@ -38,6 +38,7 @@
         </b-col>
       </b-row>
     </template>
+
   </ocs-request-overview>
 </template>
 <script>
@@ -95,9 +96,6 @@ export default {
       } else {
         return instrumentType;
       }
-    },
-    archiveDataIsAvailable: function() {
-      return false;
     },
     requestLink: function() {
       if (this.link) {
