@@ -49,12 +49,6 @@ import { OCSUtil } from 'ocs-component-lib';
 export default {
   name: 'RequestRow',
   filters: {
-    stateToBsClass: function(state, prefix) {
-      return OCSUtil.stateToBsClass(state, prefix);
-    },
-    stateToIcon: function(state) {
-      return OCSUtil.stateToIcon(state);
-    },
     formatDate(value) {
       return OCSUtil.formatDate(value);
     }
