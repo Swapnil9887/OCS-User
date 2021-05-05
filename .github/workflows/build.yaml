@@ -5,9 +5,7 @@ name: Build
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
+  release:
     branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -16,8 +14,6 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build_and_publish_image:
-    # Only run this job if this workflow was triggered by the creation of a new tag
-    if: github.event_name == 'create' && github.event.ref_type == 'tag' && github.event.repository.fork == false
     runs-on: ubuntu-latest
     env:
       DOCKER_REPOSITORY: observatorycontrolsystem/ocs-example-frontend
