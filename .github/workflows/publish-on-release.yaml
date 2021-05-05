@@ -1,23 +1,16 @@
-# This is a basic workflow to help you get started with Actions
 
 name: Build
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   release:
-    branches: [ main ]
+    type: [ published ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build_and_publish_image:
     runs-on: ubuntu-latest
     env:
       DOCKER_REPOSITORY: observatorycontrolsystem/ocs-example-frontend
-      DOCKER_IMAGE_TAG: ${{ github.event.ref }}
+      DOCKER_IMAGE_TAG: ${{ github.event.release.tag_name }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
