@@ -15,10 +15,7 @@
         <h4>RequestGroup # {{ requestgroup.id }}</h4>
       </b-col>
     </b-row>
-    <ocs-request-group-header
-      :requestgroup="requestgroup"
-      show-extra-column
-    >
+    <ocs-request-group-header :requestgroup="requestgroup" show-extra-column>
       <template v-slot:extra-column-content>
         <div class="dropdown">
           <button
@@ -165,7 +162,7 @@ export default {
       return requestDict;
     },
   },
-  created: function() {
+  created: function () {
     let that = this;
     if (that.requestDetail) {
       that.getRequestgroupByRequestId();
@@ -181,7 +178,6 @@ export default {
         url: this.observationPortalApiUrl + "/api/instruments/",
         dataType: "json",
       }).done(function (response) {
-        console.log(response)
         that.instruments = response;
       });
     },
@@ -193,7 +189,6 @@ export default {
         dataType: "json",
       })
         .done(function (response) {
-          console.log(response)
           that.requestgroup = response;
           if (response.requests.length === 1) {
             that.$router.replace({
@@ -203,7 +198,6 @@ export default {
           }
         })
         .fail(function (response) {
-          console.log(response)
           if (response.status === 404) {
             that.requestgroupNotFound = true;
           } else {
@@ -211,7 +205,6 @@ export default {
           }
         })
         .always(function (response) {
-          console.log(response)
           that.requestgroupLoaded = true;
         });
     },
@@ -226,7 +219,6 @@ export default {
         dataType: "json",
       })
         .done(function (response) {
-          console.log(response)
           if (response.results.length > 0) {
             that.requestgroup = response.results[0];
           } else {
@@ -234,7 +226,6 @@ export default {
           }
         })
         .fail(function (response) {
-          console.log(response)
           if (response.status === 404) {
             that.requestgroupNotFound = true;
           } else {
@@ -242,7 +233,6 @@ export default {
           }
         })
         .always(function (response) {
-          console.log(response)
           that.requestgroupLoaded = true;
         });
     },

@@ -1,37 +1,39 @@
-
 export const clearAndSetErrorsMixin = {
   /* Methods to modify page messages */
-  data: function() {
+  data: function () {
     return {
-      errorMessages: []
+      errorMessages: [],
     };
   },
   methods: {
-    clearErrors: function() {
+    clearErrors: function () {
       for (let message of this.errorMessages) {
-        this.$store.commit('deleteMessage', message);
+        this.$store.commit("deleteMessage", message);
       }
       this.errorMessages = [];
     },
-    setErrors: function(errorMessagesObject) {
+    setErrors: function (errorMessagesObject) {
       for (let field in errorMessagesObject) {
-        let message = '';
-        if (field === 'retrieving') {
+        let message = "";
+        if (field === "retrieving") {
           message = errorMessagesObject[field];
         } else {
-          message = field + ': ' + errorMessagesObject[field];
+          message = field + ": " + errorMessagesObject[field];
         }
         this.errorMessages.push(message);
-        this.$store.commit('addMessage', { text: message, variant: 'danger' });
+        this.$store.commit("addMessage", { text: message, variant: "danger" });
       }
     },
-    setErrorsOnFailedAJAXCall: function(errorAjaxResponse) {
+    setErrorsOnFailedAJAXCall: function (errorAjaxResponse) {
       this.clearErrors();
       if (errorAjaxResponse.status === 400) {
         this.setErrors(errorAjaxResponse.responseJSON);
       } else {
-        this.setErrors({ retrieving: 'There was a problem retrieving your data, please try again.' });
+        this.setErrors({
+          retrieving:
+            "There was a problem retrieving your data, please try again.",
+        });
       }
-    }
-  }
+    },
+  },
 };

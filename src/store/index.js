@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import $ from 'jquery';
+import Vue from "vue";
+import Vuex from "vuex";
+import $ from "jquery";
 
 Vue.use(Vuex);
 
@@ -9,21 +9,21 @@ const EMPTY_PROFILE_DATA = {
   tokens: {},
   proposals: [],
   available_instrument_types: [],
-  proposal_notifications: []
+  proposal_notifications: [],
 };
 
 export default new Vuex.Store({
-  strict: process.env.NODE_ENV !== 'production',
+  strict: process.env.NODE_ENV !== "production",
   state: {
     profile: EMPTY_PROFILE_DATA,
     userIsAuthenticated: false,
     messages: [],
-    urls: {}
+    urls: {},
   },
   mutations: {
     setProfileData(state, profileData) {
       state.profile = profileData;
-      this.commit('setUserIsAuthenticated', profileData);
+      this.commit("setUserIsAuthenticated", profileData);
     },
     setUserIsAuthenticated(state, profileData) {
       let authenticated = profileData.username ? true : false;
@@ -59,37 +59,37 @@ export default new Vuex.Store({
     },
     clearNamespacedMessages(state, namespace) {
       /* Delete all messages with the given namespace */
-      state.messages = state.messages.filter(function(value) {
+      state.messages = state.messages.filter(function (value) {
         return value.namespace !== namespace;
       });
     },
     deleteMessage(state, messageText) {
-      state.messages = state.messages.filter(function(value) {
+      state.messages = state.messages.filter(function (value) {
         return value.text !== messageText;
       });
-    }
+    },
   },
   actions: {
     getProfileData(context) {
       return new Promise((resolve, reject) => {
         $.ajax({
-          url: context.state.urls.observationPortalApi + '/api/profile/',
-          success: function(response) {
-            context.commit('setProfileData', response);
+          url: context.state.urls.observationPortalApi + "/api/profile/",
+          success: function (response) {
+            context.commit("setProfileData", response);
             resolve();
           },
-          error: function(response) {
-            context.commit('setProfileData', EMPTY_PROFILE_DATA);
+          error: function (response) {
+            context.commit("setProfileData", EMPTY_PROFILE_DATA);
             if (response.status === 403) {
               // User is not authenticated, but that is ok
               resolve();
             } else {
               reject();
             }
-          }
+          },
         });
       });
     },
   },
-  modules: {}
+  modules: {},
 });
