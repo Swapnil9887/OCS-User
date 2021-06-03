@@ -204,7 +204,7 @@ export default {
             that.requestgroupLoadError = true;
           }
         })
-        .always(function (response) {
+        .always(function () {
           that.requestgroupLoaded = true;
         });
     },
@@ -232,7 +232,7 @@ export default {
             that.requestgroupLoadError = true;
           }
         })
-        .always(function (response) {
+        .always(function () {
           that.requestgroupLoaded = true;
         });
     },
