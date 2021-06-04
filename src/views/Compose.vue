@@ -13,6 +13,7 @@
               :instruments="instruments"
               :request-group="requestGroup"
               :form-config="formConfig"
+              :site-code-to-color="siteCodeToColor"
               :site-code-to-name="siteCodeToName"
               show-airmass-plot
               :loaded-draft-id="draftId"
@@ -87,8 +88,13 @@ export default {
       tab: 1,
       draftId: -1,
       instruments: {},
+      // The included example data uses the 'ogg' observatory
+      siteCodeToColor: {
+        ogg: "blue",
+        elp: "#d62f83"
+      },
       siteCodeToName: {
-        ogg: "Haleakala",
+        ogg: "Test Observatory"
       },
       formConfig: {
         requestGroup: {
