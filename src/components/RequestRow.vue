@@ -11,14 +11,14 @@
         <b-col align-self="center" class="border-right">
           <b-row align-h="center">
             <b-button-group>
-              <b-button :href="requestApiUrl" variant="outline-secondary"><i class="fa fa-fw fa-code" /> View in API</b-button>
+              <b-button :href="requestApiUrl" variant="outline-secondary"
+                ><i class="fa fa-fw fa-code" /> View in API</b-button
+              >
             </b-button-group>
           </b-row>
         </b-col>
         <b-col align-self="center" class="text-center">
-          <template v-if="requestIsComplete">
-            complete
-          </template>
+          <template v-if="requestIsComplete"> complete </template>
           <template v-else-if="requestIsPending">
             <div>
               <template v-if="schedulingInformation.found">
@@ -38,90 +38,101 @@
         </b-col>
       </b-row>
     </template>
-
   </ocs-request-overview>
 </template>
 <script>
-import $ from 'jquery';
-import _ from 'lodash';
-import { OCSUtil } from 'ocs-component-lib';
+import $ from "jquery";
+import { OCSUtil } from "ocs-component-lib";
 
 export default {
-  name: 'RequestRow',
+  name: "RequestRow",
   filters: {
     formatDate(value) {
       return OCSUtil.formatDate(value);
-    }
+    },
   },
   props: {
     request: {
       type: Object,
-      required: true
+      required: true,
     },
     instruments: {
       type: Object,
-      required: true
+      required: true,
     },
     link: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  data: function() {
+  data: function () {
     return {
       frame: {},
       schedulingInformation: {
         found: false,
-        error: ''
-      }
+        error: "",
+      },
     };
   },
   computed: {
-    observationPortalApiUrl: function() {
+    observationPortalApiUrl: function () {
       return this.$store.state.urls.observationPortalApi;
     },
-    requestApiUrl: function() {
-      return this.$store.state.urls.observationPortalApi + '/api/requests/' + this.request.id + '/';
+    requestApiUrl: function () {
+      return (
+        this.$store.state.urls.observationPortalApi +
+        "/api/requests/" +
+        this.request.id +
+        "/"
+      );
     },
-    requestLink: function() {
+    requestLink: function () {
       if (this.link) {
-        return { to: { name: 'requestDetail', params: { id: this.request.id } } };
+        return {
+          to: { name: "requestDetail", params: { id: this.request.id } },
+        };
       } else {
         return {};
       }
     },
-    requestIsComplete: function() {
-      return this.request.state === 'COMPLETED';
+    requestIsComplete: function () {
+      return this.request.state === "COMPLETED";
     },
-    requestIsPending: function() {
-      return this.request.state === 'PENDING';
-    }
+    requestIsPending: function () {
+      return this.request.state === "PENDING";
+    },
   },
-  created: function() {
-    if (this.request.state === 'PENDING') {
+  created: function () {
+    if (this.request.state === "PENDING") {
       this.getPendingDetails();
     }
   },
   methods: {
-    getPendingDetails: function() {
+    getPendingDetails: function () {
       let that = this;
-      $.getJSON(this.observationPortalApiUrl + '/api/requests/' + this.request.id + '/observations/?exclude_canceled=true', function(data) {
-        if (data.length > 0) {
-          data = data.reverse(); // get the latest non canceled block
-          that.schedulingInformation = {
-            found: true,
-            site: data[0].site,
-            start: data[0].start,
-            end: data[0].end
-          };
-        } else {
-          that.schedulingInformation = {
-            found: false,
-            error: 'No scheduling information found'
-          };
+      $.getJSON(
+        this.observationPortalApiUrl +
+          "/api/requests/" +
+          this.request.id +
+          "/observations/?exclude_canceled=true",
+        function (data) {
+          if (data.length > 0) {
+            data = data.reverse(); // get the latest non canceled block
+            that.schedulingInformation = {
+              found: true,
+              site: data[0].site,
+              start: data[0].start,
+              end: data[0].end,
+            };
+          } else {
+            that.schedulingInformation = {
+              found: false,
+              error: "No scheduling information found",
+            };
+          }
         }
-      });
-    }
-  }
+      );
+    },
+  },
 };
 </script>

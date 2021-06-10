@@ -1,111 +1,111 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-import RequestgroupsList from '../views/RequestgroupsList.vue';
-import Login from '../views/Login.vue';
-import Profile from '../views/Profile.vue';
-import RequestgroupDetail from '../views/RequestgroupDetail.vue';
-import Observations from '../views/Observations.vue';
-import ObservationDetail from '../views/ObservationDetail.vue';
-import Compose from '../views/Compose.vue';
-import NotFound from '../components/NotFound.vue';
-import store from '../store/index.js';
-import _ from 'lodash';
+import RequestgroupsList from "../views/RequestgroupsList.vue";
+import Login from "../views/Login.vue";
+import Profile from "../views/Profile.vue";
+import RequestgroupDetail from "../views/RequestgroupDetail.vue";
+import Observations from "../views/Observations.vue";
+import ObservationDetail from "../views/ObservationDetail.vue";
+import Compose from "../views/Compose.vue";
+import NotFound from "../components/NotFound.vue";
+import store from "../store/index.js";
+import _ from "lodash";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'requests',
+    path: "/",
+    name: "requests",
     component: RequestgroupsList,
     meta: {
-      title: 'Submitted Requests'
-    }
+      title: "Submitted Requests",
+    },
   },
   {
-    path: '/requestgroups/:id',
-    name: 'requestgroupDetail',
+    path: "/requestgroups/:id",
+    name: "requestgroupDetail",
     component: RequestgroupDetail,
     meta: {
-      title: 'Request Group Detail'
-    }
+      title: "Request Group Detail",
+    },
   },
   {
-    path: '/requests/:id',
-    name: 'requestDetail',
+    path: "/requests/:id",
+    name: "requestDetail",
     component: RequestgroupDetail,
     meta: {
-      title: 'Request Detail'
-    }
+      title: "Request Detail",
+    },
   },
   {
-    path: '/observations',
-    name: 'observations',
+    path: "/observations",
+    name: "observations",
     component: Observations,
     meta: {
-      title: 'Observations',
-      isFluidPage: true
-    }
+      title: "Observations",
+      isFluidPage: true,
+    },
   },
   {
-    path: '/observations/:id',
-    name: 'observationDetail',
+    path: "/observations/:id",
+    name: "observationDetail",
     component: ObservationDetail,
     props: true,
     meta: {
-      title: 'Observation Detail'
-    }
+      title: "Observation Detail",
+    },
   },
   {
-    path: '/create',
-    name: 'create',
+    path: "/create",
+    name: "create",
     component: Compose,
     meta: {
-      title: 'Create New Request',
-      requiresAuth: true
-    }
+      title: "Create New Request",
+      requiresAuth: true,
+    },
   },
   {
-    path: '/accounts/profile',
-    name: 'profile',
+    path: "/accounts/profile",
+    name: "profile",
     component: Profile,
     meta: {
-      title: 'Profile',
-      requiresAuth: true
-    }
+      title: "Profile",
+      requiresAuth: true,
+    },
   },
   {
-    path: '/accounts/login',
-    name: 'login',
+    path: "/accounts/login",
+    name: "login",
     component: Login,
     meta: {
-      title: 'Log in'
-    }
+      title: "Log in",
+    },
   },
   {
-    path: '*',
-    name: 'notFound',
-    component: NotFound
-  }
+    path: "*",
+    name: "notFound",
+    component: NotFound,
+  },
 ];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 router.beforeEach((to, from, next) => {
   // Set the title of each page
-  const baseTitle = _.split(document.title, '|')[0];
+  const baseTitle = _.split(document.title, "|")[0];
   const nearestWithTitle = to.matched
     .slice()
     .reverse()
-    .find(r => r.meta && r.meta.title);
+    .find((r) => r.meta && r.meta.title);
   // If a route with a title was found, set the document (page) title to that value.
   if (nearestWithTitle) {
-    document.title = baseTitle + ' | ' + nearestWithTitle.meta.title;
+    document.title = baseTitle + " | " + nearestWithTitle.meta.title;
   } else {
     document.title = baseTitle;
   }
@@ -118,16 +118,16 @@ router.beforeEach((to, from, next) => {
   // the page that is navigated to on successful form submission. By default though, messages
   // should be cleared.
   if (to.name !== from.name && !to.params.persistMessage) {
-    store.commit('clearAllMessages');
+    store.commit("clearAllMessages");
   }
   next();
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     // Route requires the user to be logged in, check if logged in and if not, redirect to login page.
     if (!store.state.userIsAuthenticated) {
-      next({ name: 'login', query: { next: to.path } });
+      next({ name: "login", query: { next: to.path } });
     } else {
       next();
     }

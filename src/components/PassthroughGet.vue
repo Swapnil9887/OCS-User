@@ -5,68 +5,80 @@
   </div>
 </template>
 <script>
-import $ from 'jquery';
+import $ from "jquery";
 
 export default {
-  name: 'PassthroughGet',
+  name: "PassthroughGet",
   props: {
     endpoint: {
       type: String,
-      required: true
+      required: true,
     },
     successRedirectViewName: {
       type: String,
-      default: ''
+      default: "",
     },
     successRedirectPath: {
       type: String,
-      default: ''
+      default: "",
     },
     asLink: {
       type: Boolean,
-      default: false
+      default: false,
     },
     linkText: {
       type: String,
-      default: ''
+      default: "",
     },
     linkClasses: {
       type: String,
-      default: ''
+      default: "",
     },
     errorMessage: {
       type: String,
-      default: 'There was a problem with your request.'
-    }
+      default: "There was a problem with your request.",
+    },
   },
   computed: {
-    url: function() {
-      let endpoint = this.endpoint.endsWith('/') ? this.endpoint : this.endpoint + '/';
-      return this.$store.state.urls.observationPortalApi + endpoint + '?passthrough=true';
-    }
+    url: function () {
+      let endpoint = this.endpoint.endsWith("/")
+        ? this.endpoint
+        : this.endpoint + "/";
+      return (
+        this.$store.state.urls.observationPortalApi +
+        endpoint +
+        "?passthrough=true"
+      );
+    },
   },
-  mounted: function() {
+  mounted: function () {
     if (!this.asLink) {
       this.performGet();
     }
   },
   methods: {
-    addMessage: function(text, variant) {
-      this.$store.commit('addMessage', { text: text, variant: variant, namespace: 'passthrough-get' });
+    addMessage: function (text, variant) {
+      this.$store.commit("addMessage", {
+        text: text,
+        variant: variant,
+        namespace: "passthrough-get",
+      });
     },
-    clearMessages: function() {
-      this.$store.commit('clearNamespacedMessages', 'passthrough-get');
+    clearMessages: function () {
+      this.$store.commit("clearNamespacedMessages", "passthrough-get");
     },
-    performGet: function() {
+    performGet: function () {
       this.clearMessages();
       let that = this;
       $.ajax({
-        method: 'GET',
+        method: "GET",
         url: this.url,
-        success: function(response) {
+        success: function (response) {
           if (that.successRedirectViewName) {
             // Successful submission, and a redirect has been set. Navigate to the specified view name.
-            let successPathname = that.$router.resolve({ name: that.successRedirectViewName });
+            let successPathname = that.$router.resolve({
+              name: that.successRedirectViewName,
+            });
             window.location.pathname = successPathname.href;
           } else if (that.successRedirectPath) {
             // Successful submission, and a redirect path has been set. Navigate to the specified path.
@@ -74,18 +86,18 @@ export default {
           } else {
             // Successful submission, and no redirect has been set. Replace the contents with
             // the main content of the response.
-            let reponseContent = $(response).find('div, p');
-            $('#passthrough-container').replaceWith(reponseContent);
+            let reponseContent = $(response).find("div, p");
+            $("#passthrough-container").replaceWith(reponseContent);
           }
         },
-        error: function(response) {
+        error: function (response) {
           if (!that.asLink && response.status === 404) {
-            that.$router.replace({ name: 'notFound' });
+            that.$router.replace({ name: "notFound" });
           }
-          that.addMessage(that.errorMessage, 'danger');
-        }
+          that.addMessage(that.errorMessage, "danger");
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>

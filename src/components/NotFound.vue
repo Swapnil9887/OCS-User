@@ -2,27 +2,33 @@
   <div class="row">
     <div class="col-md-12 text-center">
       <h2>Oops! This looks like a black hole.</h2>
-      <p>Either you don't have permission to view this page or it doesn't exist.</p>
+      <p>
+        Either you don't have permission to view this page or it doesn't exist.
+      </p>
       <p v-if="!userIsAuthenticated">
         Perhaps you should try
         <router-link :to="{ name: 'login' }"> logging in </router-link>.
       </p>
       <p v-else-if="userIsStaffWithoutStaffViewSet">
-        Perhaps you should try turning on staff view. You can do this on your <router-link :to="{ name: 'profile' }">profile page</router-link>.
+        Perhaps you should try turning on staff view. You can do this on your
+        <router-link :to="{ name: 'profile' }">profile page</router-link>.
       </p>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: 'NotFound',
+  name: "NotFound",
   computed: {
-    userIsAuthenticated: function() {
+    userIsAuthenticated: function () {
       return this.$store.state.userIsAuthenticated;
     },
-    userIsStaffWithoutStaffViewSet: function() {
-      return this.$store.state.profile.is_staff && !this.$store.state.profile.profile.staff_view;
-    }
-  }
+    userIsStaffWithoutStaffViewSet: function () {
+      return (
+        this.$store.state.profile.is_staff &&
+        !this.$store.state.profile.profile.staff_view
+      );
+    },
+  },
 };
 </script>

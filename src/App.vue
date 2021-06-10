@@ -3,10 +3,16 @@
     <div>
       <b-navbar toggleable="lg" variant="dark" type="dark">
         <b-navbar-brand>
-          <div id="name-large" class="text-left pl-2 align-top d-none d-lg-inline-block">
-            Example<br/>Observation Portal
+          <div
+            id="name-large"
+            class="text-left pl-2 align-top d-none d-lg-inline-block"
+          >
+            Example<br />Observation Portal
           </div>
-          <div id="name-small" class="text-left pl-2 align-middle d-inline-block d-lg-none">
+          <div
+            id="name-small"
+            class="text-left pl-2 align-middle d-inline-block d-lg-none"
+          >
             Observation Portal
           </div>
         </b-navbar-brand>
@@ -16,12 +22,15 @@
             <b-nav-item :to="{ name: 'requests' }">Requests</b-nav-item>
             <b-nav-item :to="{ name: 'create' }">Submit Observation</b-nav-item>
             <b-nav-item :to="{ name: 'observations' }">Observations</b-nav-item>
-
             <template v-if="userIsAuthenticated">
               <hr class="w-100 d-lg-none border-light" />
-              <b-nav-text class="d-lg-none"><i class="fas fa-user-alt"></i>
-              <span class="font-weight-bold">{{ profile.username }}</span></b-nav-text >
-              <b-nav-item class="d-lg-none" :to="{ name: 'profile' }" >Profile</b-nav-item >
+              <b-nav-text class="d-lg-none">
+                <i class="fas fa-user-alt"></i>
+                <span class="font-weight-bold">{{ profile.username }}</span>
+              </b-nav-text>
+              <b-nav-item class="d-lg-none" :to="{ name: 'profile' }">
+                Profile
+              </b-nav-item>
               <passthrough-get
                 class="d-lg-none"
                 endpoint="/accounts/logout/"
@@ -33,10 +42,11 @@
               />
             </template>
             <template v-else>
-              <b-nav-item class="d-lg-none" :to="{ name: 'login' }">Login</b-nav-item>
+              <b-nav-item class="d-lg-none" :to="{ name: 'login' }">
+                Login
+              </b-nav-item>
             </template>
           </b-navbar-nav>
-
           <b-navbar-nav class="ml-auto">
             <b-nav-item-dropdown
               v-if="userIsAuthenticated"
@@ -46,16 +56,14 @@
               <template #button-content>
                 <i class="fas fa-user-alt"></i>
               </template>
-              <b-dropdown-text
-                >Logged in as
-                <span class="font-weight-bold">{{
-                  profile.username
-                }}</span></b-dropdown-text
-              >
+              <b-dropdown-text>
+                Logged in as
+                <span class="font-weight-bold">{{ profile.username }}</span>
+              </b-dropdown-text>
               <b-dropdown-divider></b-dropdown-divider>
-              <b-dropdown-item :to="{ name: 'profile' }"
-                >Profile</b-dropdown-item
-              >
+              <b-dropdown-item :to="{ name: 'profile' }">
+                Profile
+              </b-dropdown-item>
               <passthrough-get
                 endpoint="/accounts/logout/"
                 :as-link="true"
@@ -65,12 +73,17 @@
                 error-message="Oops, there was an error logging out, please try again."
               />
             </b-nav-item-dropdown>
-            <b-nav-item v-else :to="{ name: 'login' }" class="d-none d-lg-block">Login</b-nav-item >
+            <b-nav-item
+              v-else
+              :to="{ name: 'login' }"
+              class="d-none d-lg-block"
+            >
+              Login
+            </b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
     </div>
-
     <b-container :fluid="isFluidPage" class="flex-shrink-0 p-1">
       <b-row>
         <b-col md="12">
@@ -89,19 +102,22 @@
       </b-row>
       <router-view class="my-3" />
     </b-container>
-
     <div class="footer text-center mt-auto pt-2">
       <ul>
         <li>
-          <a class="black" title="github" href="https://github.com/observatorycontrolsystem/" >
-            <i class="fab fa-github"></i> View the Observatory Control System on Github </a>
+          <a
+            class="black"
+            title="github"
+            href="https://github.com/observatorycontrolsystem/"
+          >
+            <i class="fab fa-github"></i> View the Observatory Control System on
+            Github
+          </a>
         </li>
       </ul>
     </div>
-
   </div>
 </template>
-
 <script>
 import PassthroughGet from "@/components/PassthroughGet.vue";
 
@@ -137,7 +153,6 @@ export default {
 #app {
   min-height: 100vh;
 }
-
 .footer {
   background-color: #ced6e0;
 }
@@ -150,14 +165,6 @@ export default {
 }
 .footer ul li:first-child {
   border: none;
-}
-
-.brand-image-large {
-  max-height: 50px;
-  padding-right: 0.5rem;
-}
-.brand-image-small {
-  max-height: 45px;
 }
 #name-large {
   font-size: 1.2rem;
