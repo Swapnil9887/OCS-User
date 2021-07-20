@@ -91,10 +91,10 @@ export default {
       // The included example data uses the 'ogg' observatory
       siteCodeToColor: {
         ogg: "blue",
-        elp: "#d62f83"
+        elp: "#d62f83",
       },
       siteCodeToName: {
-        ogg: "Test Observatory"
+        ogg: "Test Observatory",
       },
       formConfig: {
         requestGroup: {
@@ -127,7 +127,10 @@ export default {
                     exposure_time: "",
                     mode: "",
                     rotator_mode: "",
-                    extra_params: {},
+                    extra_params: {
+                      offset_ra: 0,
+                      offset_dec: 0,
+                    },
                     optical_elements: {},
                   },
                 ],
