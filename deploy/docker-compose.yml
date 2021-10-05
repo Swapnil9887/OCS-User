@@ -1,0 +1,15 @@
+version: '3.7'
+
+# This provides a simple example frontend that can view and schedule Requests using
+# the Observation Portal API backend and components from the ocs-component-lib.
+services:
+    obs_portal_frontend:
+        image: observatorycontrolsystem/ocs-example-frontend:0.1.0
+        ports:
+            - "8080:8080"
+        restart: always
+        environment:
+            # These addresses should point to your Observation Portal backend deployment
+            -  VUE_APP_OBSERVATION_PORTAL_API_URL=http://127.0.0.1:8000
+            -  INTERNAL_OBSERVATION_PORTAL_API_URL=http://127.0.0.1:8000
+        entrypoint: /entrypoint.sh
