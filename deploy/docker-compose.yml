@@ -9,7 +9,12 @@ services:
             - "8080:8080"
         restart: always
         environment:
-            # These addresses should point to your Observation Portal backend deployment
+            # This address should point to your Observation Portal backend deployment.
+            # It is used within the frontend, so it can access localhost outside the docker network.
             -  VUE_APP_OBSERVATION_PORTAL_API_URL=http://127.0.0.1:8000
-            -  INTERNAL_OBSERVATION_PORTAL_API_URL=http://127.0.0.1:8000
+            # This address is used within the docker container, so localhost won't work normally.
+            # Note that when using the default docker network on linux, 172.17.0.1 works
+            # for localhost of the host network, but for mac you will need to use
+            # `host.docker.internal` instead to point to localhost of the host network.
+            -  INTERNAL_OBSERVATION_PORTAL_API_URL=http://172.17.0.1:8000
         entrypoint: /entrypoint.sh
