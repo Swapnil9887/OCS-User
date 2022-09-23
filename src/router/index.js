@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import RequestgroupsList from "../views/RequestgroupsList.vue";
 import Login from "../views/Login.vue";
+import Register from '../views/Register.vue';
 import Profile from "../views/Profile.vue";
 import RequestgroupDetail from "../views/RequestgroupDetail.vue";
 import Observations from "../views/Observations.vue";
@@ -82,6 +83,14 @@ const routes = [
     meta: {
       title: "Log in",
     },
+  },
+  {
+    path: '/accounts/register',
+    name: 'register',
+    component: Register,
+    meta: {
+      title: 'Register for an account'
+    }
   },
   {
     path: "*",
