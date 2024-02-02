@@ -5,6 +5,8 @@ import RequestgroupsList from "../views/RequestgroupsList.vue";
 import Login from "../views/Login.vue";
 import Register from '../views/Register.vue';
 import Profile from "../views/Profile.vue";
+import AccountsGet from '../views/AccountsGet.vue';
+import AccountsForm from '../views/AccountsForm.vue';
 import RequestgroupDetail from "../views/RequestgroupDetail.vue";
 import Observations from "../views/Observations.vue";
 import ObservationDetail from "../views/ObservationDetail.vue";
@@ -90,6 +92,45 @@ const routes = [
     component: Register,
     meta: {
       title: 'Register for an account'
+    },
+    // if user is authenticated, redirect to homepage
+    beforeEnter (to, from, next) {
+      if (store.state.userIsAuthenticated) {
+        next('/');
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/accounts/password/reset/confirm/:id/set-password',
+    name: 'passwordResetConfirmSetPassword',
+    component: AccountsForm
+  },
+  {
+    path: '/accounts/password/reset/confirm/:id/:anotherId',
+    name: 'passwordResetConfirm',
+    component: AccountsGet,
+    props: {
+      successRedirectViewName: 'passwordResetConfirmSetPassword'
+    }
+  },
+  {
+    path: '/accounts/password/reset',
+    name: 'passwordReset',
+    component: AccountsForm
+  },
+  {
+    path: '/accounts/password/change',
+    name: 'passwordChange',
+    component: AccountsForm
+  },
+  {
+    path: '/accounts/*',
+    component: AccountsGet,
+    meta: {
+      title: 'Accounts'
     }
   },
   {
