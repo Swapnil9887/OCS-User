@@ -1,6 +1,8 @@
-# OCS Example Frontend
+# OCS User Frontend
 
-A comprehensive Vue.js frontend application demonstrating the use of the `ocs-components-lib` and showcasing the general capabilities of an observatory control system. This project provides a modern, responsive web interface for managing astronomical observations and control systems.
+> A **Vue.js-based web application** that serves as the **user interface section** of the **Observatory Control System (OCS)**. This project provides the frontend components and views specifically designed for user interactions, authentication, and profile management within the OCS ecosystem.
+
+A comprehensive Vue.js frontend application demonstrating the use of the `ocs-components-lib` and showcasing the user-facing capabilities of an observatory control system. This project provides a modern, responsive web interface for user authentication, profile management, and user-specific operations within the OCS platform.
 
 ## 🚀 Quick Start
 
