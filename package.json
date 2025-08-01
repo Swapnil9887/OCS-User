@@ -15,7 +15,7 @@
     "jquery": "^3.5.0",
     "lodash": "^4.17.13",
     "moment": "^2.22.1",
-    "ocs-component-lib": "^0.13.1",
+    "ocs-component-lib": "^0.13.3",
     "vis": "4.19.1",
     "vue": "^2.6.11",
     "vue-ctk-date-time-picker": "^2.0.9",

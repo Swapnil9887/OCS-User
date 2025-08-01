@@ -65,8 +65,7 @@ const routes = [
     name: "create",
     component: Compose,
     meta: {
-      title: "Create New Request",
-      requiresAuth: true,
+      title: "Create New Request"
     },
   },
   {
